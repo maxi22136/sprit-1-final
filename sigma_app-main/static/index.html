@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16303F">
+<title>SIGMA · Manufacturas Andina</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F0EB;--surf:#fff;--ink:#1C2430;--mut:#66707A;--line:#DAD5CB;--btn:#16303F;--onbtn:#fff;--acc:#C2691E;--ok:#2C7A4B;--warn:#B06E0B;--bad:#B2402F;--hero:#16303F}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161B;--surf:#19222A;--ink:#E8ECEA;--mut:#93A0A8;--line:#2A363F;--btn:#5FA3B8;--onbtn:#0E1A20;--acc:#E58B3C;--ok:#5CC48A;--warn:#E0A53A;--bad:#E4766A}}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.85rem;letter-spacing:.02em}
+.top{background:var(--hero);color:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px}.brand b{font-size:1.1rem;letter-spacing:.08em}.brand small{display:block;opacity:.7;font-size:.72rem;margin-top:-4px}
+.who{display:flex;align-items:center;gap:10px;font-size:.85rem}
+.av{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:600}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px calc(92px + env(safe-area-inset-bottom,0px))}
+h2{font-size:1.05rem;margin:0 0 4px;font-weight:600}h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);margin:20px 0 8px;font-weight:600}
+.sub{color:var(--mut);font-size:.9rem;margin:0}.mut{color:var(--mut);font-size:.85rem}
+.card{background:var(--surf);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+.card.activo,.card.Cerrada{border-left-color:var(--ok)}.card.inactivo{border-left-color:var(--bad)}.card.proc{border-left-color:var(--warn)}
+.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.78rem;font-weight:600;border:1px solid currentColor;white-space:nowrap}
+.activo .badge,.b-ok{color:var(--ok)}.inactivo .badge,.b-bad{color:var(--bad)}.b-warn{color:var(--warn)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:6px}
+.kpi{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:12px}
+.kpi b{font-size:1.9rem;line-height:1;display:block}.kpi span{font-size:.82rem;color:var(--mut)}
+.k-ok b{color:var(--ok)}.k-bad b{color:var(--bad)}.k-warn b{color:var(--warn)}
+button{font:inherit;cursor:pointer}
+.b{background:var(--btn);color:var(--onbtn);border:0;border-radius:8px;padding:10px 14px;font-weight:500;min-height:44px}
+.b.s{background:transparent;color:var(--ink);border:1px solid var(--line)}.b[disabled]{opacity:.5;cursor:not-allowed}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+label{display:block;font-weight:500;margin:12px 0 4px;font-size:.92rem}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:11px}
+textarea{min-height:84px;resize:vertical}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.chips{display:flex;gap:8px;margin:10px 0;overflow-x:auto}
+.chip{border:1px solid var(--line);background:var(--surf);color:var(--ink);border-radius:99px;padding:6px 14px;white-space:nowrap}
+.chip.on{background:var(--btn);color:var(--onbtn);border-color:var(--btn)}
+ul{margin:8px 0 0;padding-left:18px}li{margin-bottom:4px}
+.tabs{position:fixed;left:0;right:0;bottom:0;background:var(--surf);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+.tabs button{background:none;border:0;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.72rem;padding:4px 10px;min-width:64px;min-height:44px}
+.tabs button.on{color:var(--acc);font-weight:600}.tabs svg{width:22px;height:22px}
+.hero{background:linear-gradient(160deg,#16303F,#0F2230);color:#fff;padding:calc(40px + env(safe-area-inset-top,0px)) 24px 56px;text-align:center}
+.hero h1{margin:14px 0 2px;letter-spacing:.14em;font-size:1.9rem}.hero p{margin:0;opacity:.8;font-size:.92rem}
+.login{max-width:420px;margin:-32px auto 24px;padding:0 16px}
+.login .card{border-left-color:var(--acc);padding:18px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.pw{position:relative}.pw button{position:absolute;right:4px;top:4px;background:none;border:0;color:var(--mut);min-height:40px;padding:0 10px}
+.err{background:color-mix(in srgb,var(--bad) 12%,transparent);color:var(--bad);border:1px solid var(--bad);border-radius:8px;padding:8px 10px;font-size:.88rem;margin-top:12px}
+.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 80% 8%,rgba(229,139,60,.28),transparent 46%),linear-gradient(160deg,#16303F,#0F2230)!important}.hero .mt{position:absolute;left:0;bottom:0;width:100%;height:90px}.hero>svg:not(.mt){animation:flota 5s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-6px)}}
+.card{animation:sube .35s ease both}@keyframes sube{from{opacity:0;transform:translateY(8px)}}
+.plano{background-color:var(--surf);background-image:linear-gradient(color-mix(in srgb,var(--line) 55%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--line) 55%,transparent) 1px,transparent 1px);background-size:22px 22px;border:1px solid var(--line);border-radius:14px;padding:6px}
+.nodo{cursor:pointer}.nodo:focus-visible{outline:3px solid var(--acc)}.halo{transform-box:fill-box;transform-origin:center;animation:halo 1.8s ease-out infinite}
+@keyframes halo{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.9);opacity:0}}
+.leyenda{margin:10px 0 14px}.leyenda i{display:inline-block;width:10px;height:10px;border-radius:50%;margin:0 5px 0 14px;vertical-align:middle}.leyenda i:first-child{margin-left:0}
+.tl{position:relative;padding-left:24px}.tl:before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tli{position:relative}.tli:before{content:"";position:absolute;left:-24px;top:20px;width:14px;height:14px;border-radius:50%;background:var(--ok);border:3px solid var(--bg)}.tli.proc:before{background:var(--warn)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+#toast{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:8px;display:none;z-index:9}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status"></div>
+<script>
+var S={eq:[],in:[],log:[],rep:[],repResumen:null},me=null,tab="panel",filtro="todos",estF="todos",q="",USERS=[],loginErr="",lastU="",solo="",sel="";
+var ROLES={tecnico:"Técnico de mantenimiento",supervisor:"Supervisor de mantenimiento"};
+var IC={planta:'<path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2zM9 4v14M15 6v14"/>',panel:'<path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/>',equipos:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',registrar:'<path d="M12 5v14M5 12h14"/>',hist:'<circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/>',log:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>'};
+var NAMES={panel:"Panel",planta:"Planta",equipos:"Equipos",registrar:"Registrar",hist:"Historial",log:"Actividad"};
+function ico(n){return'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[n]+'</svg>'}
+var MT='<svg class="mt" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 90V52l55-34 48 34 66-46 76 52 58-32 97 44v20z" fill="rgba(255,255,255,.07)"/><path d="M0 90V70l70-24 60 28 80-40 70 34 120-22v44z" fill="rgba(229,139,60,.12)"/></svg>';
+function saludo(){var h=new Date().getHours();return h<12?"Buenos días":h<20?"Buenas tardes":"Buenas noches"}
+function ring(a){var n=S.eq.length||1,p=Math.round(a/n*100),c=2*Math.PI*42,col=p>=80?"var(--ok)":p>=50?"var(--warn)":"var(--bad)";return'<div class="card" style="display:flex;align-items:center;gap:16px;border-left-color:'+col+'"><svg width="104" height="104" viewBox="0 0 104 104" role="img" aria-label="Disponibilidad '+p+' por ciento"><circle cx="52" cy="52" r="42" fill="none" stroke="var(--line)" stroke-width="10"/><circle cx="52" cy="52" r="42" fill="none" stroke="'+col+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(c*p/100)+' '+c+'" transform="rotate(-90 52 52)" style="transition:stroke-dasharray .8s"/><text x="52" y="59" text-anchor="middle" font-size="22" font-weight="600" fill="currentColor">'+p+'%</text></svg><div><h2>Disponibilidad de planta</h2><p class="sub">'+a+' de '+S.eq.length+' equipos operativos ahora mismo.</p></div></div>'}
+var LOGO='<svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path d="M2 34L15 10l7 12 5-8 11 20z" fill="#C2691E"/><path d="M15 10l7 12-6 12H2z" fill="#E58B3C" opacity=".9"/></svg>';
+async function api(p,m,b){var r=await fetch("/api"+p,{method:m||"GET",headers:{"Content-Type":"application/json"},body:b?JSON.stringify(b):undefined});var d=null;try{d=await r.json()}catch(e){}if(!r.ok)throw new Error((d&&d.error)||"Error del servidor");return d}
+async function cargar(){S.eq=await api("/equipos");S.in=await api("/intervenciones");S.log=me&&me.r==="supervisor"?await api("/actividad"):[];S.rep=await api("/repuestos");S.repResumen=me&&me.r==="supervisor"?await api("/reportes/resumen"):null}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fmt(d){return d?new Date(d).toLocaleString("es-CL",{dateStyle:"short",timeStyle:"short"}):"—"}
+function hace(d){var m=Math.max(1,Math.round((Date.now()-new Date(d))/6e4));return m<60?"hace "+m+" min":m<1440?"hace "+Math.round(m/60)+" h":"hace "+Math.round(m/1440)+" d"}
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.k);toast.k=setTimeout(function(){t.style.display="none"},3200)}
+function eqName(id){var x=S.eq.filter(function(e){return e.id===id})[0];return x?id+" · "+x.n:id}
+function enProceso(id){return S.in.filter(function(i){return i.eq===id&&i.est==="En proceso"})[0]}
+function listaEquipos(){var t=q.toLowerCase();var l=S.eq.filter(function(e){return solo?e.id===solo:((estF==="todos"||e.e===estF)&&(e.n+" "+e.u+" "+e.id).toLowerCase().indexOf(t)>-1)});
+if(!l.length)return'<div class="card"><p class="sub">No hay equipos que coincidan con la búsqueda.</p></div>';
+return l.map(function(e){var p=enProceso(e.id);return'<div class="card '+e.e+'"><div class="row"><div><h2>'+esc(e.n)+'</h2><p class="sub"><span class="mono">'+e.id+'</span> · '+esc(e.u)+'</p></div><span class="badge">'+(e.e==="activo"?"Activo":"Detenido")+'</span></div>'+(p?'<p class="mut" style="margin:8px 0 0">En intervención por '+esc(p.tec)+' · '+hace(p.ini)+'</p>':"")+'<div class="acts"><button class="b s" data-a="hist" data-id="'+e.id+'">Ver historial</button>'+(me.r==="supervisor"?'<button class="b" data-a="toggle" data-id="'+e.id+'">Marcar como '+(e.e==="activo"?"detenido":"activo")+'</button>':"")+'</div></div>'}).join("")}
+function vPanel(){var a=S.eq.filter(function(e){return e.e==="activo"}).length,d=S.eq.length-a,pr=S.in.filter(function(i){return i.est==="En proceso"}),ce=S.in.length-pr.length;
+var det=S.eq.filter(function(e){return e.e==="inactivo"});
+return'<h2>'+saludo()+', '+esc(me.n.split(" · ")[0].split(" de ")[0])+'</h2><p class="sub" style="margin-bottom:12px">'+ROLES[me.r]+'</p>'+ring(a)+'<div class="kpis"><div class="kpi k-ok"><b>'+a+'</b><span>Equipos activos</span></div><div class="kpi k-bad"><b>'+d+'</b><span>Equipos detenidos</span></div><div class="kpi k-warn"><b>'+pr.length+'</b><span>Intervenciones en proceso</span></div><div class="kpi"><b>'+ce+'</b><span>Intervenciones cerradas</span></div></div>'+
+'<h3>Equipos detenidos</h3>'+(det.length?det.map(function(e){var p=enProceso(e.id);return'<div class="card inactivo"><div class="row"><div><h2>'+esc(e.n)+'</h2><p class="sub"><span class="mono">'+e.id+'</span> · '+esc(e.u)+'</p></div><span class="badge">Detenido</span></div><p class="mut" style="margin:8px 0 0">'+(p?'Lo atiende '+esc(p.tec)+' · '+hace(p.ini):'Sin intervención en proceso')+'</p></div>'}).join(""):'<div class="card activo"><p class="sub">Toda la planta está operativa.</p></div>')+
+'<h3>Intervenciones en proceso</h3>'+(pr.length?pr.map(function(i){return'<div class="card proc"><div class="row"><div><h2>'+esc(eqName(i.eq))+'</h2><p class="sub">'+i.tipo+' · '+esc(i.tec)+' · '+hace(i.ini)+'</p></div><span class="badge b-warn">En proceso</span></div><p class="mut" style="margin:8px 0 0">'+esc(i.falla)+'</p></div>'}).join(""):'<div class="card"><p class="sub">No hay intervenciones abiertas.</p></div>')}
+function vPlanta(){var z={},o=[];S.eq.forEach(function(e){if(!z[e.u]){z[e.u]=[];o.push(e.u)}z[e.u].push(e)});
+var gw=170,gh=112,g=10,s="";
+o.forEach(function(u,k){var x=(k%2)*(gw+g)+4,y=Math.floor(k/2)*(gh+g)+4;
+s+='<rect x="'+x+'" y="'+y+'" width="'+gw+'" height="'+gh+'" rx="12" fill="var(--surf)" fill-opacity=".75" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="5 4"/><text x="'+(x+12)+'" y="'+(y+20)+'" font-size="10.5" font-weight="600" letter-spacing=".8" fill="var(--mut)">'+esc(u.toUpperCase())+'</text>';
+z[u].forEach(function(e,j){var cx=x+34+(j%3)*52,cy=y+62+Math.floor(j/3)*38,c=e.e==="inactivo"?"var(--bad)":enProceso(e.id)?"var(--warn)":"var(--ok)";
+s+='<g class="nodo" data-a="nodo" data-id="'+e.id+'" tabindex="0" role="button" aria-label="'+esc(e.n)+'">'+(e.e==="inactivo"?'<circle class="halo" cx="'+cx+'" cy="'+cy+'" r="19" fill="'+c+'"/>':"")+'<circle cx="'+cx+'" cy="'+cy+'" r="19" fill="var(--surf)" stroke="'+c+'" stroke-width="'+(sel===e.id?5:3)+'"/><text x="'+cx+'" y="'+(cy+4)+'" text-anchor="middle" class="mono" font-size="11" fill="currentColor">'+e.id.slice(-3)+'</text></g>'})});
+var H=Math.ceil(o.length/2)*(gh+g)+g-2;
+solo=sel;var d=sel?listaEquipos():'<p class="mut">Toca una máquina del plano para ver su detalle.</p>';solo="";
+return'<h2>Plano de planta</h2><p class="sub" style="margin-bottom:10px">Estado de cada máquina por zona.</p><div class="plano"><svg viewBox="0 0 '+(gw*2+g+8)+' '+H+'" width="100%" role="group" aria-label="Plano de planta">'+s+'</svg></div><p class="mut leyenda"><i style="background:var(--ok)"></i>Operativo<i style="background:var(--warn)"></i>En intervención<i style="background:var(--bad)"></i>Detenido</p>'+d}
+function vEquipos(){return'<label for="q" style="margin-top:0">Buscar equipo</label><input id="q" type="search" placeholder="Nombre, ubicación o código" value="'+esc(q)+'"><div class="chips">'+[["todos","Todos"],["activo","Activos"],["inactivo","Detenidos"]].map(function(c){return'<button class="chip'+(estF===c[0]?" on":"")+'" data-a="est" data-id="'+c[0]+'">'+c[1]+'</button>'}).join("")+'</div><div id="eq-list">'+listaEquipos()+'</div>'}
+function vRegistrar(){return'<div class="card"><h2>Registrar intervención</h2><p class="sub">Fecha, hora y técnico se guardan automáticamente.</p><label for="f-eq">Equipo</label><select id="f-eq">'+S.eq.map(function(e){return'<option value="'+e.id+'">'+esc(eqName(e.id))+'</option>'}).join("")+'</select><label for="f-tipo">Tipo de intervención</label><select id="f-tipo"><option>Correctiva</option><option>Preventiva</option></select><label for="f-falla">Falla detectada</label><textarea id="f-falla"></textarea><label for="f-ac">Acciones realizadas</label><textarea id="f-ac"></textarea><label for="f-est">Estado de la intervención</label><select id="f-est"><option>En proceso</option><option>Cerrada</option></select><div class="acts"><button class="b" data-a="save">Guardar intervención</button></div></div>'}
+function vHist(){var l=S.in.filter(function(i){return filtro==="todos"||i.eq===filtro});
+var sel='<label for="f-h" style="margin-top:0">Equipo</label><select id="f-h"><option value="todos">Todos los equipos</option>'+S.eq.map(function(e){return'<option value="'+e.id+'"'+(filtro===e.id?" selected":"")+'>'+esc(eqName(e.id))+'</option>'}).join("")+'</select><div style="height:12px"></div>';
+if(!l.length)return sel+'<div class="card"><p class="sub">Aún no hay intervenciones para este equipo.</p></div>';
+return sel+'<div class="tl">'+l.map(function(i){var open=i.est!=="Cerrada";return'<div class="card tli '+(open?"proc":"Cerrada")+'"><div class="row"><div><h2>'+esc(eqName(i.eq))+'</h2><p class="sub">'+i.tipo+' · '+esc(i.tec)+'</p></div><span class="badge '+(open?"b-warn":"b-ok")+'">'+i.est+'</span></div><p class="mut" style="margin:6px 0">Inicio: '+fmt(i.ini)+' · Término: '+fmt(i.fin)+'</p><p style="margin:0"><strong>Falla:</strong> '+esc(i.falla)+'</p><ul>'+i.ac.map(function(a){return'<li>'+esc(a.x)+' <span class="mut">('+esc(a.u)+', '+fmt(a.t)+')</span></li>'}).join("")+'</ul>'+(i.consumos&&i.consumos.length?'<p><strong>Repuestos utilizados:</strong></p><ul>'+i.consumos.map(function(c){return'<li>'+esc(c.codigo)+' · '+esc(c.nombre)+' × '+c.cantidad+' — $'+Number(c.costo_total).toLocaleString('es-CL')+'</li>'}).join('')+'</ul>':'')+(open&&me.r==="tecnico"?'<label for="ac-'+i.id+'">Continuar esta intervención</label><textarea id="ac-'+i.id+'"></textarea><div class="acts"><button class="b s" data-a="addac" data-id="'+i.id+'">Agregar acción</button><button class="b" data-a="close" data-id="'+i.id+'">Cerrar intervención</button></div>':"")+'</div>'}).join("")+'</div>'}
+function vLog(){return'<div class="card"><h2>Registro de actividad</h2><p class="sub">Accesos, cambios e intentos no autorizados.</p>'+(S.log.length?'<ul>'+S.log.map(function(g){return'<li><span class="mut">'+fmt(g.t)+'</span> · '+esc(g.u)+': '+esc(g.a)+'</li>'}).join("")+'</ul>':'<p class="sub">Sin actividad registrada.</p>')+'</div>'}
+function vRepuestos(){return '<h2>Gestión de repuestos</h2><p class="sub">Inventario disponible y costos unitarios.</p>'+(me.r==="supervisor"?'<div class="card"><h2>Nuevo repuesto</h2><label>Código</label><input id="r-codigo" placeholder="REP-004"><label>Nombre</label><input id="r-nombre"><label>Stock inicial</label><input id="r-stock" type="number" min="0" value="0"><label>Costo unitario ($)</label><input id="r-costo" type="number" min="0" step="0.01" value="0"><div class="acts"><button class="b" data-a="crear-repuesto">Guardar repuesto</button></div></div>':'')+(S.rep.length?S.rep.map(function(r){return '<div class="card"><div class="row"><div><h2>'+esc(r.nombre)+'</h2><p class="sub"><span class="mono">'+esc(r.codigo)+'</span> · $'+Number(r.costo_unitario).toLocaleString("es-CL")+'</p></div><span class="badge '+(r.stock>0?'b-ok':'b-bad')+'">Stock: '+r.stock+'</span></div>'+(me.r==="supervisor"?'<div class="acts"><button class="b s" data-a="ajuste" data-id="'+r.id+'" data-cambio="1">+1</button><button class="b s" data-a="ajuste" data-id="'+r.id+'" data-cambio="-1" '+(r.stock===0?'disabled':'')+'>−1</button></div>':'')+'</div>'}).join(''):'<div class="card">No hay repuestos registrados.</div>')+'<h3>Registrar consumo en intervención</h3><div class="card"><label>Intervención abierta</label><select id="c-intervencion">'+S.in.filter(function(i){return i.est==="En proceso"}).map(function(i){return '<option value="'+i.id+'">#'+i.id+' · '+esc(i.eq)+' · '+esc(i.falla)+'</option>'}).join('')+'</select><label>Repuesto</label><select id="c-repuesto">'+S.rep.map(function(r){return '<option value="'+r.id+'" '+(r.stock===0?'disabled':'')+'>'+esc(r.codigo+' · '+r.nombre+' (stock '+r.stock+')')+'</option>'}).join('')+'</select><label>Cantidad</label><input id="c-cantidad" type="number" min="1" value="1"><div class="acts"><button class="b" data-a="consumir" '+(!S.in.some(function(i){return i.est==="En proceso"})||!S.rep.some(function(r){return r.stock>0})?'disabled':'')+'>Registrar consumo</button></div></div>'}
+function vReportes(){var r=S.repResumen||{equipos:{},intervenciones:{},inventario:{},por_tipo:[],por_equipo:[],costo_repuestos:0};return '<h2>Reportes de mantenimiento</h2><p class="sub">Indicadores consolidados desde los registros persistidos.</p><div class="kpis"><div class="kpi k-ok"><b>'+(r.equipos.activo||0)+'</b><span>Equipos activos</span></div><div class="kpi k-bad"><b>'+(r.equipos.inactivo||0)+'</b><span>Equipos detenidos</span></div><div class="kpi k-warn"><b>'+(r.intervenciones["En proceso"]||0)+'</b><span>En proceso</span></div><div class="kpi"><b>'+(r.intervenciones.Cerrada||0)+'</b><span>Cerradas</span></div></div><div class="card"><h2>Consumo de repuestos</h2><p class="sub">Costo acumulado: <strong>$'+Number(r.costo_repuestos||0).toLocaleString("es-CL")+'</strong></p><p class="mut">'+(r.inventario.total||0)+' tipos · '+(r.inventario.unidades||0)+' unidades disponibles · '+(r.inventario.agotados||0)+' agotados</p></div><div class="card"><h2>Intervenciones por tipo</h2>'+(r.por_tipo.length?r.por_tipo.map(function(x){return '<p>'+esc(x.tipo)+': <strong>'+x.total+'</strong></p>'}).join(''):'<p class="sub">Sin intervenciones.</p>')+'</div><div class="card"><h2>Intervenciones por equipo</h2>'+(r.por_equipo||[]).map(function(x){return '<p><span class="mono">'+esc(x.id)+'</span> · '+esc(x.nombre)+': <strong>'+x.total+'</strong></p>'}).join('')+'</div><div class="acts"><button class="b s" data-a="csv">Exportar resumen CSV</button></div>'}
+function vLogin(){return'<div class="hero">'+MT+LOGO.replace('width="34" height="34"','width="64" height="64"')+'<h1>SIGMA</h1><p>Gestión de mantención de activos</p><p style="margin-top:4px;font-size:.8rem;opacity:.65">Manufacturas Andina S.A.</p></div><div class="login"><div class="card"><h2>Ingresar</h2><p class="sub">Accede con tu usuario corporativo.</p><label for="l-u">Usuario</label><select id="l-u">'+USERS.map(function(u){return'<option value="'+u.id+'"'+(String(u.id)===lastU?" selected":"")+'>'+esc(u.nombre)+'</option>'}).join("")+'</select><label for="l-c">Clave</label><div class="pw"><input id="l-c" type="password" autocomplete="current-password"><button type="button" data-a="ver" aria-label="Mostrar u ocultar la clave">Ver</button></div>'+(loginErr?'<div class="err" role="alert">'+esc(loginErr)+'</div>':"")+'<div class="acts" style="flex-direction:column"><button class="b" data-a="login">Ingresar</button><button class="b s" disabled title="Disponible en una próxima versión">Ingresar con huella (próximamente)</button></div><p class="mut" style="margin:12px 0 0">Demostración: la clave es sigma123.</p></div></div>'}
+function render(){var a=document.getElementById("app");if(!me){a.innerHTML=vLogin();return}
+var T=me.r==="tecnico"?["panel","planta","equipos","registrar","hist","repuestos"]:["panel","planta","equipos","hist","repuestos","reportes","log"];if(T.indexOf(tab)<0)tab="panel";
+var v={panel:vPanel,planta:vPlanta,equipos:vEquipos,registrar:vRegistrar,hist:vHist,repuestos:vRepuestos,reportes:vReportes,log:vLog}[tab]();
+a.innerHTML='<div class="top"><div class="brand">'+LOGO+'<div><b>SIGMA</b><small>Manufacturas Andina</small></div></div><div class="who"><div class="av" aria-hidden="true">'+esc(me.n.charAt(0))+'</div><button class="b s" style="color:#fff;border-color:rgba(255,255,255,.4);min-height:36px;padding:4px 12px" data-a="logout">Salir</button></div></div><div class="wrap">'+v+'</div><div class="tabs">'+T.map(function(t){return '<button class="'+(tab===t?"on":"")+'" data-a="tab" data-id="'+t+'">'+(IC[t]?ico(t):'')+({repuestos:'Repuestos',reportes:'Reportes'}[t]||NAMES[t])+'</button>'}).join('')+'</div>';
+var h=document.getElementById("f-h");if(h)h.onchange=function(){filtro=h.value;render()};var qel=document.getElementById("q");if(qel)qel.oninput=function(){q=qel.value;document.getElementById("eq-list").innerHTML=listaEquipos()}}
+
+function val(id){return document.getElementById(id).value.trim()}
+document.addEventListener("click",async function(e){var b=e.target.closest("[data-a]");if(!b||b.disabled)return;var a=b.dataset.a,id=b.dataset.id;
+try{
+if(a==="ver"){var c=document.getElementById("l-c");c.type=c.type==="password"?"text":"password";b.textContent=c.type==="password"?"Ver":"Ocultar"}
+else if(a==="login"){lastU=val("l-u");try{me=await api("/login","POST",{usuario_id:Number(lastU),clave:document.getElementById("l-c").value});loginErr="";tab="panel";await cargar();render()}catch(x){loginErr=x.message;render()}}
+else if(a==="logout"){await api("/logout","POST");me=null;loginErr="";render()}
+else if(a==="tab"){tab=id;await cargar();render()}
+else if(a==="nodo"){sel=id;render()}
+else if(a==="est"){estF=id;render()}
+else if(a==="hist"){filtro=id;tab="hist";await cargar();render()}
+else if(a==="toggle"){var r=await api("/equipos/"+id+"/estado","POST");toast(id+" ahora está "+(r.e==="activo"?"activo":"detenido")+".");await cargar();render()}
+else if(a==="save"){await api("/intervenciones","POST",{equipo_id:val("f-eq"),tipo:val("f-tipo"),falla:val("f-falla"),acciones:val("f-ac"),estado:val("f-est")});filtro=val("f-eq");tab="hist";await cargar();toast("Intervención guardada en el historial.");render()}
+else if(a==="addac"||a==="close"){await api("/intervenciones/"+id+"/acciones","POST",{texto:val("ac-"+id),cerrar:a==="close"});await cargar();toast(a==="close"?"Intervención cerrada.":"Acción agregada.");render()}
+else if(a==="crear-repuesto"){await api("/repuestos","POST",{codigo:val("r-codigo"),nombre:val("r-nombre"),stock:Number(val("r-stock")),costo_unitario:Number(val("r-costo"))});await cargar();toast("Repuesto creado.");render()}
+else if(a==="ajuste"){await api("/repuestos/"+id+"/stock","POST",{cambio:Number(b.dataset.cambio)});await cargar();render()}
+else if(a==="consumir"){await api("/intervenciones/"+val("c-intervencion")+"/consumos","POST",{repuesto_id:Number(val("c-repuesto")),cantidad:Number(val("c-cantidad"))});await cargar();toast("Consumo registrado y stock actualizado.");render()}
+else if(a==="csv"){var rr=S.repResumen;var rows=[["Indicador","Valor"],["Equipos activos",rr.equipos.activo||0],["Equipos detenidos",rr.equipos.inactivo||0],["Intervenciones en proceso",rr.intervenciones["En proceso"]||0],["Intervenciones cerradas",rr.intervenciones.Cerrada||0],["Costo repuestos",rr.costo_repuestos]];var csv=rows.map(function(x){return x.join(";")}).join("\n");var blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="sigma-reporte-sprint2.csv";link.click();URL.revokeObjectURL(url)}
+}catch(x){toast(x.message)}});
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.id==="l-c")document.querySelector('[data-a="login"]').click()});
+(async function(){try{USERS=await api("/usuarios");me=await api("/yo");await cargar()}catch(x){me=null}render()})();
+</script>
+</body>
+</html>

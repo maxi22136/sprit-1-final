@@ -1,0 +1,18 @@
+digraph SIGMA {
+  rankdir=LR; fontname="Helvetica"; bgcolor="white"; nodesep=0.5; ranksep=0.9;
+  node [shape=plaintext fontname="Helvetica" fontsize=11];
+  edge [fontname="Helvetica" fontsize=10 color="#555555"];
+  usuarios [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F6F78"><FONT COLOR="white"><B>usuarios</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK)</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR><TR><TD ALIGN="LEFT">rol</TD></TR><TR><TD ALIGN="LEFT">clave_hash</TD></TR></TABLE>>];
+  equipos [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F6F78"><FONT COLOR="white"><B>equipos</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK, código único)</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR><TR><TD ALIGN="LEFT">ubicacion</TD></TR><TR><TD ALIGN="LEFT">estado (activo/inactivo)</TD></TR></TABLE>>];
+  intervenciones [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F6F78"><FONT COLOR="white"><B>intervenciones</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK)</TD></TR><TR><TD ALIGN="LEFT">equipo_id (FK)</TD></TR><TR><TD ALIGN="LEFT">tecnico_id (FK)</TD></TR><TR><TD ALIGN="LEFT">tipo</TD></TR><TR><TD ALIGN="LEFT">falla</TD></TR><TR><TD ALIGN="LEFT">estado</TD></TR><TR><TD ALIGN="LEFT">fecha_inicio</TD></TR><TR><TD ALIGN="LEFT">fecha_termino</TD></TR></TABLE>>];
+  acciones [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F6F78"><FONT COLOR="white"><B>acciones</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK)</TD></TR><TR><TD ALIGN="LEFT">intervencion_id (FK)</TD></TR><TR><TD ALIGN="LEFT">tecnico_id (FK)</TD></TR><TR><TD ALIGN="LEFT">fecha</TD></TR><TR><TD ALIGN="LEFT">texto</TD></TR></TABLE>>];
+  repuestos [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#8A8F94"><FONT COLOR="white"><B>repuestos (Sprint 2)</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK)</TD></TR><TR><TD ALIGN="LEFT">codigo (único)</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR><TR><TD ALIGN="LEFT">stock (≥ 0)</TD></TR><TR><TD ALIGN="LEFT">costo_unitario (≥ 0)</TD></TR></TABLE>>];
+  consumos [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#8A8F94"><FONT COLOR="white"><B>consumos (Sprint 2)</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK)</TD></TR><TR><TD ALIGN="LEFT">intervencion_id (FK)</TD></TR><TR><TD ALIGN="LEFT">repuesto_id (FK)</TD></TR><TR><TD ALIGN="LEFT">cantidad (&gt; 0)</TD></TR><TR><TD ALIGN="LEFT">costo_total (≥ 0)</TD></TR><TR><TD ALIGN="LEFT">fecha</TD></TR></TABLE>>];
+  actividad [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4"><TR><TD BGCOLOR="#1F6F78"><FONT COLOR="white"><B>actividad</B></FONT></TD></TR><TR><TD ALIGN="LEFT"><B>id</B> (PK)</TD></TR><TR><TD ALIGN="LEFT">fecha</TD></TR><TR><TD ALIGN="LEFT">usuario</TD></TR><TR><TD ALIGN="LEFT">accion</TD></TR></TABLE>>];
+  equipos -> intervenciones [label="1 a N"];
+  usuarios -> intervenciones [label="1 a N (responsable)"];
+  usuarios -> acciones [label="1 a N"];
+  intervenciones -> acciones [label="1 a N"];
+  intervenciones -> consumos [label="1 a N"];
+  repuestos -> consumos [label="1 a N"];
+}
